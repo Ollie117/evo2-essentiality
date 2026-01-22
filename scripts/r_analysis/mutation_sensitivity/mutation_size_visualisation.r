@@ -11,8 +11,8 @@ library(dplyr)
 # CONFIGURATION
 # ============================================================================
 
-input_dir <- "../../../data/processed/mutation_size"
-output_dir <- "../../../results/mutation_size"
+input_dir <- "data/processed/mutation_size"
+output_dir <- "results/mutation_size"
 
 if (!dir.exists(output_dir)) {
   dir.create(output_dir, recursive = TRUE)

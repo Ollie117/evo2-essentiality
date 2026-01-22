@@ -43,11 +43,11 @@ def score_sequence(sequence: str, model: Evo2, device: str = 'cuda:0') -> float:
         # Get logits
         with torch.no_grad():
             output = model(input_ids)
-            # Handle tuple output - logits is typically first element
-            if isinstance(output, tuple):
-                logits = output[0]
-            else:
-                logits = output
+            
+            # Handle tuple/nested tuple output - extract logits tensor
+            logits = output
+            while isinstance(logits, tuple):
+                logits = logits[0]
         
         # Convert to log probabilities
         logprobs = torch.log_softmax(logits, dim=-1)

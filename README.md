@@ -1,16 +1,14 @@
 # Evo2 Gene Essentiality Prediction
 
-
-
 ## Overview
 
-
+This project uses Evo2, a large language model trained on DNA sequences, to predict which genes are essential for Mycobacterium tuberculosis to survive.
 
 ## Key Results
 
-- **Main finding 1**: value/statistic
-- **Main finding 2**: value/statistic
-- **Main finding 3**: value/statistic
+82.5% AUC
+81% sensitivity
+96.2% NPV 
 
 ## Installation
 
@@ -99,40 +97,3 @@ evo2-essentiality/
 | NPV | 96.2% |
 | Accuracy | 73.2% |
 
-## File Descriptions
-
-### Python Scripts (`scripts/model_setup/`)
-- `01_parse_gtf.py` - Extract CDS from GTF
-- `02_extract_sequences.py` - Add genomic context
-- `03.1_generate_peturbated_sequences_evo_paper_strategy.py` - Generate perturbed sequences
-- `04_evo_scoring.py` - Score with Evo2
-
-### R Scripts (`scripts/analysis/`)
-- `01_load_tnseq_data.r` - Load and clean TnSeq data
-- `02_load_likelyhood_scores.r` - Load Evo2 scores
-- `03_merge_datasets.r` - Merge predictions with experimental data
-- `04_roc_analysis.r` - Calculate ROC metrics
-- `05_plot_roc_curve.r` - Generate ROC plot
-
-## Technical Details
-
-- **Organism**: *Mycobacterium tuberculosis* H37Rv
-- **Genome**: GCF_000195955.2 (4.4 Mb, 3,906 genes)
-- **Model**: Evo2 7B parameters
-- **Runtime**: ~6 hours for full dataset on NVIDIA L40S
-
-## Future Work
-
-- [ ] Stratified analysis by functional categories
-- [ ] Comparison with other prediction methods
-- [ ] Conditional essentiality analysis
-- [ ] Integration with pathway databases
-
-## References
-
-- Sassetti, C.M. & Rubin, E.J. (2013). "Mycobacterial Persistence and Pathogenesis through the Lens of Bacterial Genetics." *Nature Reviews Microbiology*.
-- Arc Institute & Stanford. (2024). "Evo2: Evolutionary-inspired Large Language Models for Genomics."
-
-## License
-
-This project is provided for academic and research purposes.

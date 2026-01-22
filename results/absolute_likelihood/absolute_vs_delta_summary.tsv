@@ -1,0 +1,4 @@
+Method	AUROC	CI_lower	CI_upper
+Delta log-likelihood (perturbation)	0.825	0.806	0.843
+Absolute WT likelihood (total)	0.738	0.716	0.759
+Absolute WT likelihood (per-base)	0.664	0.639	0.689

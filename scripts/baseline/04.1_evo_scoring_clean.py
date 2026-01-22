@@ -14,7 +14,7 @@ Output includes:
   Positive Δℓ suggests mutation is tolerated (gene likely non-essential)
 """
 
-import pandas as pdf
+import pandas as pd
 import numpy as np
 import torch
 from evo2 import Evo2

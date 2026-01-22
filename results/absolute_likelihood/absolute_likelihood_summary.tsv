@@ -1,0 +1,3 @@
+Method	AUROC	CI_lower	CI_upper
+Absolute WT likelihood (total)	0.738	0.716	0.759
+Absolute WT likelihood (per-base)	0.664	0.639	0.689
