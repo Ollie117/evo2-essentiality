@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project uses Evo2, a large language model trained on DNA sequences, to predict which genes are essential for Mycobacterium tuberculosis to survive.
+This project uses Evo2, a large language model trained on DNA sequences, to predict gene essentiality in *Mycobacterium tuberculosis*
 
 ## Key Results
 
