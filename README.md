@@ -1,29 +1,11 @@
 # Evo2 Gene Essentiality Prediction
 
-This project uses Evo2, a large language model trained on DNA sequences, to predict gene essentiality in *Mycobacterium tuberculosis*
-
-## Key Results
-
-82.5% AUC
-81% sensitivity
-96.2% NPV 
-
-## Installation
-
-### Requirements
-- Python 3.8+
-- R 4.0+
-- A 48GB minimum NVIDIA GPU
-
-### Setup
-
-```bash
-# Python dependencies
-pip install -r scripts/model_setup/requirements.txt
-
-# R dependencies
-install.packages(c("readxl", "dplyr", "tidyr", "pROC", "ggplot2", "readr"))
-```
+This project validates the use of the Evo2 genome foundation model's ability to predict gene essentiality in *Mycobacterium tuberculosis*
+The methodology used by the authors in first replicated to validate the results obtained in the paper. https://arcinstitute.org/manuscripts/Evo2
+Then, in the interest of understanding the model's biological understanding, further analyses are performed including:
+  1. Changing the approach taken by the authors to obtain the likelihood scores from comparing the wildtype sequences to perturbed sequences to calculating likelihood from wiltype alone.
+  2. Varying the size of the mutations introduced into the mutated sequences.
+  3. Varying the size of the genomic context given to the model.
 
 ## References
 DeJesus MA, Gerrick ER, Xu W, Park SW, Long JE, Boutte CC, Rubin EJ, Schnappinger D, Ehrt S, Fortune SM, Sassetti CM, Ioerger TR. Comprehensive Essentiality Analysis of the Mycobacterium tuberculosis Genome via Saturating Transposon Mutagenesis. mBio. 2017;8(1):e02133-16.
