@@ -1,7 +1,5 @@
 # Evo2 Gene Essentiality Prediction
 
-## Overview
-
 This project uses Evo2, a large language model trained on DNA sequences, to predict gene essentiality in *Mycobacterium tuberculosis*
 
 ## Key Results
@@ -15,7 +13,7 @@ This project uses Evo2, a large language model trained on DNA sequences, to pred
 ### Requirements
 - Python 3.8+
 - R 4.0+
-- NVIDIA GPU (optional, for faster Evo2 inference)
+- A 48GB minimum NVIDIA GPU
 
 ### Setup
 
@@ -26,74 +24,7 @@ pip install -r scripts/model_setup/requirements.txt
 # R dependencies
 install.packages(c("readxl", "dplyr", "tidyr", "pROC", "ggplot2", "readr"))
 ```
- 
-## Usage
 
-### Quick Start
-
-```bash
-# Phase 1: Prepare sequences and score with Evo2
-python scripts/model_setup/01_parse_gtf.py
-python scripts/model_setup/02_extract_sequences.py
-python scripts/model_setup/03.1_generate_peturbated_sequences_evo_paper_strategy.py
-python scripts/model_setup/04_evo_scoring.py
-
-# Phase 2: Validate against experimental data
-bash run_validation_pipeline.sh
-```
-
-### Input Data
-
-- Genome: `data/raw/GCF_000195955.2_ASM19595v2_genomic.fna`
-- Annotations: `data/raw/genomic.gtf`
-- Experimental: `data/raw/mbo002173137st3.xlsx` (TnSeq essentiality data)
-
-### Output
-
-Results saved to `results/validation/`:
-- `roc_curve.png` - ROC curve plot
-- `performance_metrics.csv` - AUC, sensitivity, specificity, etc.
-- `merged_predictions.csv` - Gene-level predictions
-
-## Project Structure
-
-```
-evo2-essentiality/
-├── data/
-│   ├── raw/              # Original genomic and experimental data
-│   └── processed/        # Intermediate and final outputs
-├── scripts/
-│   ├── model_setup/      # Sequence preparation & Evo2 scoring
-│   └── analysis/         # Validation analysis & ROC curves
-├── results/validation/   # Final results and plots
-├── slurm/               # HPC job submission scripts
-└── README.md
-```
-
-## Methodology
-
-### Sequence Preparation
-- Extract CDS from GTF annotations (3,906 genes)
-- Add 8 kb genomic context (4 kb on each side)
-- Generate perturbed sequences with multi-stop-codon insertions
-
-### Evo2 Scoring
-- Model: Evo2 7B (pretrained DNA language model)
-- Metric: Delta log-likelihood (Δℓ) = log P(mutant) - log P(wild-type)
-- Interpretation: negative Δℓ = essential, positive Δℓ = non-essential
-
-### Validation
-- Ground truth: TnSeq essentiality classifications (Sassetti et al. 2013)
-- Evaluation: ROC analysis with AUC metric
-- Optimal threshold: Youden index
-
-## Results
-
-| Metric | Value |
-|--------|-------|
-| AUC | 0.8246 |
-| Sensitivity | 81.0% |
-| Specificity | 72.1% |
-| NPV | 96.2% |
-| Accuracy | 73.2% |
-
+## References
+DeJesus MA, Gerrick ER, Xu W, Park SW, Long JE, Boutte CC, Rubin EJ, Schnappinger D, Ehrt S, Fortune SM, Sassetti CM, Ioerger TR. Comprehensive Essentiality Analysis of the Mycobacterium tuberculosis Genome via Saturating Transposon Mutagenesis. mBio. 2017;8(1):e02133-16.
+G. Brixi, M. G. Durrant, J. Ku, M. Poli, G. Brockman, D. Chang, G. A. Gonzalez, S. H. King, D. B. Li, A. T. Merchant, M. Naghipourfar, E. Nguyen, C. Ricci-Tam, D. W. Romero, G. Sun, A. Taghibakshi, A. Vorontsov, B. Yang, M. Deng, L. Gorton, N. Nguyen, N. K. Wang, E. Adams, S. A. Baccus, S. Dillmann, S. Ermon, D. Guo, R. Ilango, K. Janik, A. X. Lu, R. Mehta, M. R. K. Mofrad, M. Y. Ng, J. Pannu, C. Ré, J. C. Schmok, J. St. John, J. Sullivan, K. Zhu, G. Zynda, D. Balsam, P. Collison, A. B. Costa, T. Hernandez-Boussard, E. Ho, M.-Y. Liu, T. McGrath, K. Powell, D. P. Burke, H. Goodarzi, P. D. Hsu and B. L. Hie, Genomics, 2025, preprint
