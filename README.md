@@ -1,15 +1,32 @@
 # Evo2 Gene Essentiality Prediction
-This project validates the use of the Evo2 genome foundation model's ability to predict gene essentiality in *Mycobacterium tuberculosis*.
+This repository includes the scripts for replicating and extending the methodology employed by the Arc Institute in their paper [Evo2 paper](https://arcinstitute.org/manuscripts/Evo2), implementing the Evo2 genome foundation model to predict gene essentiality in *Mycobacterium tuberculosis*.
 
-The methodology used by the authors is first replicated to validate the results obtained in the paper [https://arcinstitute.org/manuscripts/Evo2](https://arcinstitute.org/manuscripts/Evo2). Then, an alternative strategy to obtaining likelihood through absolute likelihood scores was tested. Then we employed various perturbation strategies in order to glean further information about the model's understanding of the biology. The strategies being: varying the size of the mutations introduced into the mutated sequences; and varying the size of the genomic context given to the model.
+## Overview
 
-## Findings
-  When replicating the authors methods for obtianing likelihood scores, results were very close to what the authors reported in the paper: ~ 0.825 AUROC. 
-  Absolute likelihood scores came out lower than the authors: ~ 0.664 AUROC.
-  Varying the mutation size resulted in the AUROC increasing monotonically (AUROC: 0.760 at 3 bp → 0.825 at 15 bp)
-  Varying flanking sequence from 512 bp to 8,192 bp produced stable performance (AUROC: 0.819–0.826), indicating the model does not require distal genomic information for gene scoring. Contrary to what what the paper states about the model using distant genomic elements for predicting gene essentiality.
-  
+The workflow consists of three main stages:
+
+**1. Data preparation (Python)**: The *M. tuberculosis* H37Rv whole genome was loaded from UniProt, and gene essentiality classifications were obtained from DeJesus et al. Genes were matched to classifications, then sequences were perturbed according to each experimental strategy (mutation size variation, genomic context variation, and alternative scoring approaches). The [Evo2 python package](https://pypi.org/project/evo2/#setup) was used implementing the forward module to obtain likelihood scores. Full list of packages listed in requirements below.
+
+**2. Likelihood scoring (Evo2)**: The [Evo2 python package](https://pypi.org/project/evo2/#setup) was used implementing the forward module to obtain likelihood scores for wild-type perturbated sequences. Evo2 analyses were performed on a HPC cluster with a 48GB Nvidia GPU. Full list of hardware and software requrements listed in requirements below.
+
+**3. Statistical analysis and visualisation (R)**: Full AUROC analysis and performance metrics (sensitivity, specificitywere computed using the likelihood scores. Visualizations were generated (ROC curves, boxplots, distribution plots).
+
+## What's included
+
+- **Code**: Python scripts for sequence preparation and perturbation generation; SLURM job submission scripts for Evo2 scoring; R scripts for statistical analysis and visualisation
+- **Results**: Performance metrics, figures, and processed outputs from all experiments
+
+**Note**: Raw and processed data files are not included in this repository due to file size limitations. Source data is available from UniProt (H37Rv genome) and DeJesus et al. (2017) (essentiality classifications).
+
+## Requirements
+- Python 3.11+ (see `src/requirements.txt` for package dependencies)
+- R 4.3+ (see `analysis/requirements.txt` for package dependencies)
+- GPU access for Evo2 scoring (NVIDIA L40 / L40S or similar)
+- SLURM job scheduler (for HPC submission scripts)
+- evo2 0.4.0
+
 ## References
-DeJesus MA, Gerrick ER, Xu W, Park SW, Long JE, Boutte CC, Rubin EJ, Schnappinger D, Ehrt S, Fortune SM, Sassetti CM, Ioerger TR. Comprehensive Essentiality Analysis of the Mycobacterium tuberculosis Genome via Saturating Transposon Mutagenesis. mBio. 2017;8(1):e02133-16.
-
-Brixi, G., Durrant, M.G., Ku, J., Poli, M., Brockman, G., Chang, D., Gonzalez, G.A., King, S.H., Li, D.B., Merchant, A.T., Naghipourfar, M., Nguyen, E., Ricci-Tam, C., Romero, D.W., Sun, G., Taghibakshi, A., Vorontsov, A., Yang, B., Deng, M. and Gorton, L. (2025). Genome modeling and design across all domains of life with Evo 2. Biorxiv.
+- DeJesus MA, Gerrick ER, Xu W, Park SW, Long JE, Boutte CC, Rubin EJ, Schnappinger D, Ehrt S, Fortune SM, Sassetti CM, Ioerger TR. Comprehensive Essentiality Analysis of the Mycobacterium tuberculosis Genome via Saturating Transposon Mutagenesis. mBio. 2017;8(1):e02133-16.
+- Brixi, G., Durrant, M.G., Ku, J., Poli, M., Brockman, G., Chang, D., Gonzalez, G.A., King, S.H., Li, D.B., Merchant, A.T., Naghipourfar, M., Nguyen, E., Ricci-Tam, C., Romero, D.W., Sun, G., Taghibakshi, A., Vorontsov, A., Yang, B., Deng, M. and Gorton, L. (2025). Genome modeling and design across all domains of life with Evo 2. Biorxiv.
+- M. tuberculosis H37Rv genome: NCBI RefSeq GCF_000195955.2
+- [Evo2 python package](https://pypi.org/project/evo2/#setup)
