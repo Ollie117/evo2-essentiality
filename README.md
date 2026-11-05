@@ -1,5 +1,5 @@
 # Evo2 Gene Essentiality Prediction
-This repository includes the scripts for replicating and extending the methodology employed by the Arc Institute in their paper [Evo2 paper](https://arcinstitute.org/manuscripts/Evo2), implementing the Evo2 genome foundation model to predict gene essentiality in *Mycobacterium tuberculosis*.
+This repository includes the scripts for validating and extending the methodology employed by the Arc Institute in their paper [Evo2 paper](https://arcinstitute.org/manuscripts/Evo2), implementing the Evo2 genome foundation model to predict gene essentiality in *Mycobacterium tuberculosis*.
 
 ## Overview
 
@@ -21,7 +21,7 @@ The workflow consists of three main stages:
 ## Requirements
 - Python 3.11+ (see `src/requirements.txt` for package dependencies)
 - R 4.3+ (see `analysis/requirements.txt` for package dependencies)
-- GPU access for Evo2 scoring (NVIDIA L40 / L40S or similar)
+- A minimum of 48GB NVIDIA GPU access for Evo2 scoring (NVIDIA L40 / L40S or similar)
 - SLURM job scheduler (for HPC submission scripts)
 - evo2 0.4.0
 
