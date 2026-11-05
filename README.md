@@ -3,13 +3,22 @@ This repository includes the scripts for validating and extending the methodolog
 
 ## Overview
 
-The workflow consists of three main stages:
+The methodology workflow consists of three main stages:
 
 **1. Data preparation (Python)**: The *M. tuberculosis* H37Rv whole genome was loaded from UniProt, and gene essentiality classifications were obtained from DeJesus et al. Genes were matched to classifications, then sequences were perturbed according to each experimental strategy (mutation size variation, genomic context variation, and alternative scoring approaches). The [Evo2 python package](https://pypi.org/project/evo2/#setup) was used implementing the forward module to obtain likelihood scores. Full list of packages listed in requirements below.
 
 **2. Likelihood scoring (Evo2)**: The [Evo2 python package](https://pypi.org/project/evo2/#setup) was used implementing the forward module to obtain likelihood scores for wild-type perturbated sequences. Evo2 analyses were performed on a HPC cluster with a 48GB Nvidia GPU. Full list of hardware and software requrements listed in requirements below.
 
 **3. Statistical analysis and visualisation (R)**: Full AUROC analysis and performance metrics (sensitivity, specificitywere computed using the likelihood scores. Visualizations were generated (ROC curves, boxplots, distribution plots).
+
+### An overview of the results
+
+<p align="center">
+  <img src="results/validation/figure_baseline_combined.png" alt="Evo2 Baseline Validation Performance" width="50%">
+</p>
+
+
+The perturbation-based methodology achieved a robust AUROC of 0.825 (95% CI: 0.806–0.843) in classifying M. tuberculosis gene essentiality, significantly outperforming baseline absolute likelihood approaches. Essential genes demonstrated a distinct, statistically significant shift toward more negative delta log-likelihood values (mean = −0.035) compared to non-essential genes (mean = −0.001). At the optimal decision threshold, the model exhibited a high sensitivity of 80.8% and a Negative Predictive Value of 96.2%, demonstrating its reliability for identifying true non-essential genes.
 
 ## What's included
 
